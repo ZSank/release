@@ -1,13 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Parameter Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .code {
+            font-size: 24px;
+            color: blue;
+            cursor: pointer;
+        }
+        .code:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
 <body>
+    <h1>Your Code</h1>
+    <p id="code" class="code" onclick="copyCode()">No code found</p>
 
-<h1>This is heading 1</h1>
-<h2>This is heading 2</h2>
-<h3>This is heading 3</h3>
-<h4>This is heading 4</h4>
-<h5>This is heading 5</h5>
-<h6>This is heading 6</h6>
+    <script>
+        // Get the "code" query parameter from the URL
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const codeElement = document.getElementById('code');
 
+        if (code) {
+            codeElement.textContent = code;
+        } else {
+            codeElement.textContent = 'No code found';
+        }
+
+        // Copy the code to clipboard on click
+        function copyCode() {
+            if (code) {
+                navigator.clipboard.writeText(code)
+                    .then(() => alert('Code copied to clipboard!'))
+                    .catch(err => console.error('Failed to copy: ', err));
+            }
+        }
+    </script>
 </body>
 </html>
